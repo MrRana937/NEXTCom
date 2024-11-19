@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-outfit: 'Outfit', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+    --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+@layer components {
+  .nav-text {
+    @apply font-jakarta text-[1.24rem] font-medium tracking-wide
+           text-gray-700 transition-colors duration-200
+           group-hover:text-blue-600;
+  }
+
+  .nav-icon {
+    @apply w-5 h-5 text-gray-500
+           transition-all duration-200
+           group-hover:text-blue-600;
+  }
+
+  .nav-item-content {
+    @apply flex items-center gap-2 px-3 py-1.5 
+           rounded-full transition-all duration-200 
+           hover:bg-white/90 hover:shadow-sm
+           active:scale-95 backdrop-blur-sm;
+  }
+
+  .top-nav-item {
+    @apply relative;
+  }
+
+  /* Modern divider style */
+  .top-nav-item:not(:last-child)::after {
+    @apply content-[''] absolute right-[-12px] top-1/2 
+           -translate-y-1/2 w-[1px] h-4 
+           bg-gradient-to-b from-gray-200 to-transparent;
+  }
+
+
+  /*   user meny style */
+
+    .user-menu {
+    @apply absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg 
+           py-2 z-50 animate-fadeIn;
+  }
+
+  .menu-item {
+    @apply flex items-center px-4 py-2 hover:bg-gray-50 
+           text-sm text-gray-700 transition-colors duration-200;
+  }
+
+
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Hover effects */
+.nav-item-content:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Dropdown rotation */
+.top-nav-item:hover .nav-icon:last-child {
+  @apply rotate-180;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .nav-text {
+    @apply text-xs;
+  }
+  
+  .nav-item-content {
+    @apply px-2 py-1;
+  }
+}
