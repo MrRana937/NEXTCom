@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container-footer {
+    @apply relative w-full  mx-auto p-4 md:p-8 grid gap-12;
+    max-width: 1500px;
+    grid-template-areas:
+      "links"
+      "socials"
+      "newsletter"
+      "payment"
+      "copyright";
+  }
+
+  /* Links section */
+  .footer-links {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 ;
+    grid-area: links;
+  }
+
+  .footer-link-group {
+    @apply flex flex-col space-y-4 p-5;
+  }
+
+  .footer-link-heading {
+    @apply text-gray-900 font-bold text-lg uppercase mb-3;
+  }
+
+  .footer-link {
+    @apply text-sm text-gray-600 leading-relaxed hover:text-gray-900 hover:underline transition-colors duration-200;
+  }
+
+  /* Socials section */
+  .footer-socials {
+    @apply mb-12 mt-5; 
+    grid-area: socials;
+  }
+
+  .footer-socials-heading {
+    @apply text-lg font-bold text-gray-900 uppercase mb-4;
+  }
+
+  .footer-socials-list {
+    @apply flex items-center gap-6 mt-2.5;
+  }
+
+  .footer-social-link {
+    @apply text-2xl text-gray-600 hover:text-blue-600 transition-colors duration-200;
+  }
+
+  /* Payment section */
+  .footer-payment {
+    grid-area: payment;
+  }
+
+  .footer-payment-heading {
+    @apply text-lg font-bold text-gray-900 uppercase mb-4;
+  }
+
+  .footer-payment-grid {
+    @apply flex flex-wrap gap-2.5 mt-4;
+  }
+
+  .footer-payment-image {
+    @apply w-[60px] h-9 object-cover;
+  }
+
+  /* Newsletter section */
+  .footer-newsletter {
+    @apply mb-12;
+    grid-area: newsletter;
+  }
+
+  .footer-newsletter-form {
+    @apply flex gap-4;
+  }
+
+  .footer-newsletter-input {
+    @apply flex-1 h-10 px-3 text-sm border border-gray-400 outline-none focus:border-blue-600;
+  }
+
+  .footer-newsletter-text {
+    @apply mt-2.5 text-sm text-gray-600;
+  }
+
+  /* Copyright section */
+  .footer-copyright {
+    grid-area: copyright;
+  }
+
+  .footer-copyright-text {
+    @apply text-sm text-gray-600 pb-2.5;
+  }
+
+  .footer-copyright-links {
+    @apply flex flex-wrap items-center gap-8;
+  }
+
+  .footer-copyright-link {
+    @apply relative text-sm text-gray-600 underline hover:text-gray-900;
+  }
+}
+
+@screen md {
+  .container-footer {
+    grid-template-areas:
+      "links socials"
+      "links newsletter"
+      "copyright payment";
+  }
+}
