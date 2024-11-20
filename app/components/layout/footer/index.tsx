@@ -5,8 +5,13 @@ import Newsletter from './NewsLetter'
 import Payment from './Payments'
 import Copyright from './Copyright'
 import './index.css'
+import { CountryInfo } from '@/app/lib/services/countryService'
 
-const Footer = () => {
+interface FooterProps {
+  country: CountryInfo
+}
+
+const Footer = ({ country }: FooterProps) => {
   return (
     <footer className="bg-gray-50">
       <div className="container-footer">
@@ -14,7 +19,7 @@ const Footer = () => {
         <Socials />
         <Newsletter />
         <Payment />
-        <Copyright />
+        <Copyright country={country} />
       </div>
     </footer>
   )

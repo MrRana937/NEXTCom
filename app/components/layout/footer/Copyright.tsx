@@ -1,7 +1,12 @@
 import Link from 'next/link'
 import { IoLocationSharp } from 'react-icons/io5'
+import { CountryInfo } from '@/app/lib/services/countryService'
 
-export default function Copyright() {
+interface CopyrightProps {
+  country: CountryInfo
+}
+
+export default function Copyright({ country }: CopyrightProps) {
   return (
     <div className="footer-copyright">
       <section className="footer-copyright-text">
@@ -17,8 +22,9 @@ export default function Copyright() {
             </li>
           ))}
           <li>
-            <a className="footer-copyright-link">
+            <a className="footer-copyright-link flex items-center gap-2">
               <IoLocationSharp className="text-xl" />
+              {country.name}
             </a>
           </li>
         </ul>

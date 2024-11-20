@@ -5,8 +5,13 @@ import { MdSecurity } from 'react-icons/md'
 import { BsHeart } from 'react-icons/bs'
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from 'react-icons/ri'
 import UserMenu from './userMenu'
+import { CountryInfo } from '@/app/lib/services/countryService'
 
-export default function Top() {
+interface TopProps {
+  country: CountryInfo
+}
+
+export default function Top({ country }: TopProps) {
   return (
     <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
       <div className="max-w-7xl ml-auto mr-5 py-2 px-4">
@@ -15,11 +20,11 @@ export default function Top() {
           <li className="top-nav-item group">
             <div className="nav-item-content">
               <img
-                src="images/country.jpg"
+                src={country.flag}
                 alt="country flag"
                 className="w-5 h-5 rounded-full object-cover ring-1 ring-gray-200"
               />
-              <span className="nav-text">USA/USD</span>
+              <span className="nav-text">{country.name}</span>
               <RiArrowDropDownFill className="nav-icon" />
             </div>
           </li>
