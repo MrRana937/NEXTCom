@@ -1,4 +1,5 @@
 'use client'
+import { useSession } from 'next-auth/react'
 import Ad from './Ad'
 import './index.css'
 import Search from './search'
@@ -9,6 +10,7 @@ interface HeaderProps {
 }
 
 export default function Header({ country }: HeaderProps) {
+  const { data: session } = useSession();
   return (
     <header className="header">
       <Ad />

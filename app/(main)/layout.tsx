@@ -1,4 +1,6 @@
 import { Inter, Plus_Jakarta_Sans, Outfit } from 'next/font/google'
+import { ReduxProvider } from '../lib/redux/ReduxProvider'
+import { AuthProvider } from '../lib/auth/AuthProvider'
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -28,7 +30,11 @@ export default function RootLayout({
       lang="en"
       className={`${jakarta.variable} ${inter.variable} ${outfit.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ReduxProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ReduxProvider>
+      </body>
     </html>
   )
 }
