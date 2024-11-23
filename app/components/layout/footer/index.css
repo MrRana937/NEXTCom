@@ -24,8 +24,10 @@
     @apply flex flex-col space-y-4 p-5;
   }
 
-  .footer-link-heading {
-    @apply text-gray-900 font-bold text-lg uppercase mb-3;
+  .footer-heading {
+    /* @apply text-gray-900 font-bold text-lg uppercase mb-3; */
+    @apply font-jakarta text-[1.24rem] font-medium tracking-wide
+           text-gray-700;
   }
 
   .footer-link {

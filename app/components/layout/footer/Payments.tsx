@@ -1,7 +1,7 @@
 export default function Payment() {
   return (
     <div className="footer-payment">
-      <h3 className="footer-payment-heading">WE ACCEPT</h3>
+      <h3 className="footer-heading">WE ACCEPT</h3>
       <div className="footer-payment-grid">
         <img
           src="../../../images/payment/visa.webp"

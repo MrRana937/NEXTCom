@@ -1,40 +1,19 @@
-import { Inter, Plus_Jakarta_Sans, Outfit } from 'next/font/google'
-import { ReduxProvider } from '../lib/redux/ReduxProvider'
-import { AuthProvider } from '../lib/auth/AuthProvider'
+import Header from '@/app/components/layout/header'
+import Footer from '@/app/components/layout/footer'
+import { getCountryInfo } from '@/app/lib/services/countryService'
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap', // Add this
-  variable: '--font-jakarta',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap', // Add this
-  variable: '--font-inter',
-})
-
-const outfit = Outfit({
-  subsets: ['latin'],
-  display: 'swap', // Add this
-  variable: '--font-outfit',
-})
-
-export default function RootLayout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const country = await getCountryInfo()
+
   return (
-    <html
-      lang="en"
-      className={`${jakarta.variable} ${inter.variable} ${outfit.variable}`}
-    >
-      <body>
-        <ReduxProvider>
-          <AuthProvider>{children}</AuthProvider>
-        </ReduxProvider>
-      </body>
-    </html>
+    <>
+      <Header country={country} />
+      {children}
+      <Footer country={country} />
+    </>
   )
 }

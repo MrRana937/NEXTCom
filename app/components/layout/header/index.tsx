@@ -10,7 +10,6 @@ interface HeaderProps {
 }
 
 export default function Header({ country }: HeaderProps) {
-  const { data: session } = useSession();
   return (
     <header className="header">
       <Ad />

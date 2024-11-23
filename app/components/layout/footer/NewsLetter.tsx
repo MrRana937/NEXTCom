@@ -1,7 +1,7 @@
 export default function Newsletter() {
   return (
     <div className="footer-newsletter">
-      <h3 className="footer-payment-heading">NEWSLETTER</h3>
+      <h3 className="footer-heading">NEWSLETTER</h3>
       <div className="footer-newsletter-form">
         <input
           type="text"

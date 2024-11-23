@@ -14,7 +14,7 @@ const Links = () => {
               className="relative -left-6 h-12 w-auto object-contain mb-4"
             />
           ) : (
-            <b className="footer-link-heading">{link.heading}</b>
+            <b className="footer-heading">{link.heading}</b>
           )}
           {link.links.map(
             (item) =>

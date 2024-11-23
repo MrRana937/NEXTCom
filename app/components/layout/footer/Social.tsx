@@ -10,7 +10,7 @@ export default function Socials() {
   return (
     <div className="footer-socials">
       <section>
-        <h3 className="footer-socials-heading">STAY CONNECTED</h3>
+        <h3 className="footer-heading">STAY CONNECTED</h3>
         <ul className="footer-socials-list">
           {socialLinks.map((social) => (
             <li key={social.name}>
