@@ -8,12 +8,16 @@ import AuthSocial from './AuthSocial'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect,useRef } from 'react'
+import { useAuthMutation } from '@/app/hooks/useAuthMutation'
 
 export default function AuthForm({ providers }: { providers: any }) {
+  console.log('renderd authform');
+ 
   const { isSignUp, toggleMode } = useAuth()
   const { values, errors, handleChange, validate } = useForm(
     isSignUp ? signUpSchema : signInSchema
   )
+  const { registerMutation, loginMutation } = useAuthMutation();
 
   const firstInputRef = useRef<HTMLInputElement>(null)
 
@@ -30,10 +34,18 @@ export default function AuthForm({ providers }: { providers: any }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    // console.log('inside handle submit');
     if (validate()) {
-      // Handle form submission
+         if (isSignUp) {
+           registerMutation.mutate(values)
+         } else {
+           loginMutation.mutate(values)
+         }
     }
   }
+
+  const isLoading = registerMutation.isPending || loginMutation.isPending
+  const error = registerMutation.error || loginMutation.error
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-160px)] bg-white py-12">
@@ -41,11 +53,11 @@ export default function AuthForm({ providers }: { providers: any }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="bg-white shadow-lg rounded-sm w-[70%] flex overflow-hidden"
-        style={{ minHeight: '600px' }} 
+        style={{ minHeight: '600px' }}
       >
         {/* Left Section */}
         <motion.div
-          className="w-[40%] relative bg-blue-500 p-12" 
+          className="w-[40%] relative bg-blue-500 p-12"
           animate={{
             backgroundColor: isSignUp ? '#2874f0' : '#2874f0',
           }}
@@ -58,7 +70,7 @@ export default function AuthForm({ providers }: { providers: any }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="text-4xl font-medium" 
+              className="text-4xl font-medium"
             >
               {isSignUp ? 'Looks like youre new here!' : 'Welcome Back'}
             </motion.h2>
@@ -66,7 +78,7 @@ export default function AuthForm({ providers }: { providers: any }) {
               key={isSignUp ? 'signup-text' : 'login-text'}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-2xl text-gray-100" 
+              className="text-2xl text-gray-100"
             >
               {isSignUp
                 ? 'Sign up with your email to get started'
@@ -76,8 +88,7 @@ export default function AuthForm({ providers }: { providers: any }) {
           <div
             className="absolute bottom-0 left-0 w-full h-[250px] bg-contain bg-bottom bg-no-repeat" // Increased image height
             style={{
-              backgroundImage:
-                "url('./images/login_img.png')",
+              backgroundImage: "url('./images/login_img.png')",
             }}
           />
         </motion.div>
@@ -95,6 +106,9 @@ export default function AuthForm({ providers }: { providers: any }) {
               className="space-y-8" // Increased spacing
             >
               <form onSubmit={handleSubmit} className="space-y-6">
+               
+               {error && <div className='text-red-500'>{error.message}</div>}
+               
                 {/* Sign Up Fields */}
                 {isSignUp && (
                   <>
@@ -168,10 +182,11 @@ export default function AuthForm({ providers }: { providers: any }) {
                 {/* Submit Button */}
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full bg-orange-500 text-white py-4 font-medium rounded-sm 
                            hover:bg-orange-600 transition-colors text-lg" // Increased padding and font size
                 >
-                  {isSignUp ? 'SIGN UP' : 'LOGIN'}
+                  {isLoading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
                 </button>
               </form>
 
@@ -184,7 +199,7 @@ export default function AuthForm({ providers }: { providers: any }) {
                   onClick={toggleMode}
                   className="w-full bg-white text-blue-500 py-4 font-medium rounded-sm 
                  shadow-md hover:shadow-lg hover:bg-white transition-all text-lg
-                 border border-blue-500 hover:text-blue-600" 
+                 border border-blue-500 hover:text-blue-600"
                 >
                   Existing User? Log in
                 </button>

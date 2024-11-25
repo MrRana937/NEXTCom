@@ -17,8 +17,8 @@ export default function FormInput({
   onChange,
   error,
 }: FormInputProps) {
-  console.log('FormInput rendered');
-  console.log(ref);
+  // console.log('FormInput rendered');
+  // console.log(ref);
   return (
     <div className="relative">
       <input
