@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect,useRef } from 'react'
 import { useAuthMutation } from '@/app/hooks/useAuthMutation'
+import Spinner from '../ui/Spinner'
 
 export default function AuthForm({ providers }: { providers: any }) {
   console.log('renderd authform');
@@ -48,7 +49,9 @@ export default function AuthForm({ providers }: { providers: any }) {
   const error = registerMutation.error || loginMutation.error
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-160px)] bg-white py-12">
+    <div className={`flex flex-col items-center justify-center min-h-[calc(100vh-160px)] 
+      bg-white py-12 ${isLoading ? 'pointer-events-none' : ''}`}>
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -106,9 +109,8 @@ export default function AuthForm({ providers }: { providers: any }) {
               className="space-y-8" // Increased spacing
             >
               <form onSubmit={handleSubmit} className="space-y-6">
-               
-               {error && <div className='text-red-500'>{error.message}</div>}
-               
+                {error && <div className="text-red-500">{error.message}</div>}
+
                 {/* Sign Up Fields */}
                 {isSignUp && (
                   <>
@@ -183,48 +185,63 @@ export default function AuthForm({ providers }: { providers: any }) {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-orange-500 text-white py-4 font-medium rounded-sm 
-                           hover:bg-orange-600 transition-colors text-lg" // Increased padding and font size
+                  className={`
+                    w-full bg-orange-500 text-white py-4 font-medium rounded-sm 
+                    hover:bg-orange-600 transition-all duration-200 text-lg
+                    flex items-center justify-center
+                    ${isLoading ? 'opacity-80 cursor-wait' : ''}
+                  `}
                 >
-                  {isLoading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
+                  {isLoading ? (
+                    <>
+                      <Spinner className="h-5 w-5 text-white/90 mr-2" />
+                      <span className="text-white/90">Processing...</span>
+                    </>
+                  ) : (
+                    isSignUp ? 'Sign Up' : 'Sign In'
+                  )}
                 </button>
+
+                {/* Make other buttons appear disabled during loading */}
+                <div className={`${isLoading ? 'opacity-50' : ''}`}>
+                  {/* Divider */}
+
+                  {/* OAuth Buttons */}
+                  {isSignUp ? (
+                    <button
+                      type="button"
+                      onClick={toggleMode}
+                      className="w-full bg-white text-blue-500 py-4 font-medium rounded-sm 
+                     shadow-md hover:shadow-lg hover:bg-white transition-all text-lg
+                     border border-blue-500 hover:text-blue-600"
+                    >
+                      Existing User? Log in
+                    </button>
+                  ) : (
+                    <>
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div className="relative flex justify-center text-lg">
+                          <span className="px-2 bg-white text-gray-500">Or</span>
+                        </div>
+                      </div>
+                      <AuthSocial providers={providers} />
+                    </>
+                  )}
+                </div>
               </form>
 
-              {/* Divider */}
-
-              {/* OAuth Buttons */}
-              {isSignUp ? (
-                <button
-                  type="button"
-                  onClick={toggleMode}
-                  className="w-full bg-white text-blue-500 py-4 font-medium rounded-sm 
-                 shadow-md hover:shadow-lg hover:bg-white transition-all text-lg
-                 border border-blue-500 hover:text-blue-600"
-                >
-                  Existing User? Log in
-                </button>
-              ) : (
-                <>
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div className="relative flex justify-center text-lg">
-                      <span className="px-2 bg-white text-gray-500">Or</span>
-                    </div>
-                  </div>
-                  <AuthSocial providers={providers} />
-                </>
-              )}
+              {/* Toggle Button */}
+              <motion.button
+                onClick={toggleMode}
+                className="text-blue-500 font-medium text-lg text-center mt-8 hover:underline"
+              >
+                {!isSignUp && 'New to Shoppay? Create an account'}
+              </motion.button>
             </motion.div>
           </AnimatePresence>
-          {/* Toggle Button */}
-          <motion.button
-            onClick={toggleMode}
-            className="text-blue-500 font-medium text-lg text-center mt-8 hover:underline"
-          >
-            {!isSignUp && 'New to Shoppay? Create an account'}
-          </motion.button>
         </div>
       </motion.div>
     </div>
