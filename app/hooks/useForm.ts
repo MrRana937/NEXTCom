@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { z } from 'zod'
 
 export function useForm<T extends z.ZodSchema>(schema: T) {
@@ -31,5 +31,14 @@ export function useForm<T extends z.ZodSchema>(schema: T) {
     }
   }
 
-  return { values, errors, handleChange, validate }
+   const resetForm = useCallback(() => {
+     setValues({})
+     setErrors({})
+   }, [])
+
+   const setExistingEmail = useCallback((existingEmail: string) => {
+     setValues((prev: any) => ({ ...prev, email: existingEmail }))
+   }, [])
+
+  return { values, errors, handleChange, validate, resetForm,setExistingEmail }
 }

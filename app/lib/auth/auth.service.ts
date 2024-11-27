@@ -8,14 +8,14 @@ export class AuthService {
   static async register(userData: UserRegistration): Promise<AuthResponse> {
     await dbConnect()
 
-    // Validate email format
-    if (!validateEmail(userData.email)) {
-      throw new Error('Invalid email format')
-    }
-
     const existingUser = await User.findOne({ email: userData.email })
     if (existingUser) {
-      throw new Error('Email already registered')
+      return {
+        success: false,
+        type: 'EXISTING_USER',
+        message: 'User already exists',
+        email: userData.email,
+           }
     }
 
     // Create new user with emailVerified set to false

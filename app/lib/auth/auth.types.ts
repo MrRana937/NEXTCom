@@ -11,7 +11,9 @@ export interface UserLogin {
 
 export interface AuthResponse {
   success: boolean
+  type?: 'EXISTING_USER' | 'SUCCESS'
   message: string
+  email?: string
   user?: {
     id: string
     fullName: string

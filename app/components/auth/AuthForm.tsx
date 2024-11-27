@@ -10,12 +10,15 @@ import Link from 'next/link'
 import { useEffect,useRef } from 'react'
 import { useAuthMutation } from '@/app/hooks/useAuthMutation'
 import Spinner from '../ui/Spinner'
+import {useSearchParams } from 'next/navigation'
 
 export default function AuthForm({ providers }: { providers: any }) {
   console.log('renderd authform');
  
+  const SearchParams = useSearchParams();
+  const existingEmail= SearchParams.get('email');
   const { isSignUp, toggleMode } = useAuth()
-  const { values, errors, handleChange, validate } = useForm(
+  const { values, errors, handleChange, validate,resetForm,setExistingEmail } = useForm(
     isSignUp ? signUpSchema : signInSchema
   )
   const { registerMutation, loginMutation } = useAuthMutation();
@@ -23,15 +26,21 @@ export default function AuthForm({ providers }: { providers: any }) {
   const firstInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    console.log(isSignUp);
-   console.log('useeffect triggered')
-   console.log(firstInputRef.current)
-   const timeoutId = setTimeout(() => {
-     firstInputRef.current?.focus()
-   }, 500)
+    console.log("effect triggerd");
+    resetForm();
+    const timeoutId = setTimeout(() => {
+      if (existingEmail) {
+        console.log(existingEmail);
+        setExistingEmail(existingEmail);
+      } else {
+        firstInputRef.current?.focus();
+      }
+    }, 500);
 
-    return () => clearTimeout(timeoutId)
-  }, [isSignUp])
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isSignUp, resetForm, existingEmail, setExistingEmail]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

@@ -15,7 +15,9 @@ export async function POST(request: Request) {
       email: validatedData.email,
       password: validatedData.password,
     })
-
+  if (response.type === 'EXISTING_USER') {
+    return NextResponse.json(response, { status: 200 })
+  }
     return NextResponse.json(response)
   } catch (error: any) {
     return NextResponse.json(
