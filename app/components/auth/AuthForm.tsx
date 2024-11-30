@@ -11,6 +11,7 @@ import { useEffect,useRef } from 'react'
 import { useAuthMutation } from '@/app/hooks/useAuthMutation'
 import Spinner from '../ui/Spinner'
 import {useSearchParams } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 export default function AuthForm({ providers }: { providers: any }) {
   console.log('renderd authform');

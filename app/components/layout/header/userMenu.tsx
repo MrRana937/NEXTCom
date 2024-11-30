@@ -17,6 +17,8 @@ export default function UserMenu() {
     { icon: '🔑', label: 'Logout', action: () => signOut(), requireAuth: true },
   ];
 
+  console.log(session);
+
  return (
    <div
      className="relative"
