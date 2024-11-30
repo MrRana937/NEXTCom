@@ -3,9 +3,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link"
 import { useState } from "react";
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
+import Image from "next/image";
 
 export default function UserMenu() {
-  const { data: session } = useSession();
+  const { data: session,status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
     
   const menuItems = [
@@ -17,7 +18,11 @@ export default function UserMenu() {
     { icon: '🔑', label: 'Logout', action: () => signOut(), requireAuth: true },
   ];
 
-  console.log(session);
+  if (status === 'loading') {
+    return null
+  }
+
+  console.log(session)
 
  return (
    <div
@@ -26,10 +31,12 @@ export default function UserMenu() {
      onMouseLeave={() => setIsOpen(false)}
    >
      <button className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/90 shadow-sm backdrop-blur-sm">
-      {session?.user ? <img
+      {session?.user ? <Image
          src={session?.user?.image || ''}
          alt="user avatar"
          className="w-5 h-5 rounded-full object-cover ring-1 ring-gray-200"
+         width={20}
+         height={20}
          /> : <RiAccountPinCircleLine className="text-[1.8rem] text-blue-600"/>}
        <span className="nav-text text-[1.27rem] text-blue-600"
        onClick={()=>signIn()}

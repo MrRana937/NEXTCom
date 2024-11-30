@@ -1,5 +1,5 @@
 export interface UserRegistration {
-  fullName: string
+  name: string
   email: string
   password: string
 }
@@ -16,7 +16,7 @@ export interface AuthResponse {
   email?: string
   user?: {
     id: string
-    fullName: string
+    name: string
     email: string
     image?: string
   }

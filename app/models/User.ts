@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { validateEmail } from '@/app/lib/validation/utils'
 
 const userSchema = new mongoose.Schema({
-  fullName: {
+  name: {
     type: String,
     required: [true, 'Name is required'],
     trim: true,
@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator: validateEmail,
       message: 'Please enter a valid email address',
-    }
+    },
   },
   password: {
     type: String,
     required: [true, 'Please provide a password'],
-    select: false, // Don't include password in queries by default
+    select: false,
   },
   image: {
     type: String,
@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
 // Hash password before saving
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next()
-
   this.password = await bcrypt.hash(this.password, 12)
   next()
 })
@@ -53,4 +52,5 @@ userSchema.methods.comparePassword = async function (
   return await bcrypt.compare(candidatePassword, this.password)
 }
 
-export default mongoose.models.User || mongoose.model('User', userSchema)
+const User = mongoose.models.User || mongoose.model('User', userSchema)
+export default User

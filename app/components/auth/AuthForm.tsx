@@ -19,9 +19,8 @@ export default function AuthForm({ providers }: { providers: any }) {
   const SearchParams = useSearchParams();
   const existingEmail= SearchParams.get('email');
   const { isSignUp, toggleMode } = useAuth()
-  const { values, errors, handleChange, validate,resetForm,setExistingEmail } = useForm(
-    isSignUp ? signUpSchema : signInSchema
-  )
+  const schema = isSignUp ? signUpSchema : signInSchema
+  const { values, errors, handleChange, validate,resetForm,setExistingEmail } = useForm(schema)
   const { registerMutation, loginMutation } = useAuthMutation();
 
   const firstInputRef = useRef<HTMLInputElement>(null)
@@ -128,10 +127,10 @@ export default function AuthForm({ providers }: { providers: any }) {
                       ref={firstInputRef}
                       label="Full Name"
                       type="text"
-                      name="fullName"
-                      value={values.fullName || ''}
+                      name="name"
+                      value={values.name || ''}
                       onChange={handleChange}
-                      error={errors.fullName}
+                      error={errors.name}
                     />
                     <FormInput
                       label="Email Address"
