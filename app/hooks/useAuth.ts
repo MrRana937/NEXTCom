@@ -9,9 +9,24 @@ export function useAuth() {
   const [loading, setLoading] = useState(false)
 
   const isSignUp = searchParams.get('signup') === 'true'
+  const callbackUrl = searchParams.get('callbackUrl') || '/'
 
   const toggleMode = () => {
-    router.push(`/signin${isSignUp ? '' : '?signup=true'}`)
+    const params = new URLSearchParams()
+    
+    // Toggle signup parameter
+    if (!isSignUp) {
+      params.set('signup', 'true')
+    }
+    
+    // Preserve callback URL if it exists
+    if (callbackUrl !== '/') {
+      params.set('callbackUrl', callbackUrl)
+    }
+
+    // Construct the URL with all parameters
+    const queryString = params.toString()
+    router.push(`/signin${queryString ? `?${queryString}` : ''}`)
   }
 
   const handleSubmit = async (data: any) => {
