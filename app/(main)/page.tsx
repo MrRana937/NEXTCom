@@ -1,4 +1,9 @@
+import Home from './_components/home'
 
-export default async function Home() {
-  return <main className="h-screen">main page content</main>
+export default async function Main() {
+  return (
+    <main className="h-screen">
+      <Home />
+    </main>
+  )
 }

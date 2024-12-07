@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useEffect,useRef } from 'react'
 import { useAuthMutation } from '@/app/hooks/useAuthMutation'
-import Spinner from '../ui/Spinner'
+import Spinner from '../ui/Loaders/Spinner'
 import {useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 

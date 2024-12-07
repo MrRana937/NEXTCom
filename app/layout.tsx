@@ -1,9 +1,9 @@
 import { Inter, Plus_Jakarta_Sans, Outfit } from 'next/font/google'
-// import { ReduxProvider } from './providers/ReduxProvider'
-// import { AuthProvider } from './providers/AuthProvider'
-// import QueryProvider from './providers/QueryProvider'
 import { Providers } from '@/app/providers/Providers'
+import { getCountryInfo } from './lib/services/countryService'
 import './globals.css'
+import Header from './components/layout/header'
+import Footer from './components/layout/footer'
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -23,11 +23,13 @@ const outfit = Outfit({
   variable: '--font-outfit',
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const country = await getCountryInfo()
+
   return (
     <html
       lang="en"
@@ -35,7 +37,9 @@ export default function RootLayout({
     >
       <body>
         <Providers>
+          <Header country={country} />    
           {children}
+          <Footer country={country} />
         </Providers>
       </body>
     </html>
