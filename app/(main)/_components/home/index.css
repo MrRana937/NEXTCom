@@ -13,31 +13,35 @@ grid-template-areas:"menu header header"
 
 .home-header {
   grid-area: header;
-  background-color: aqua;
+  /* background-color: aqua; */
+  border: 1px solid black;
   height: 60px;
 }
 
 .home-menu {
   grid-area: menu;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
+  border: 1px solid red;
   height: 625px;
 }
 
 .home-swiper {
   grid-area: swiper;
-  background-color: rgb(255, 123, 0);
+  background-color: lightcyan;
+    border: 1px solid black;
   height: 330px;
 }
 
 .home-offers {
   grid-area: offers;
-  background-color: rgb(0, 255, 55);
+  /* background-color: rgb(0, 255, 55); */  border: 1px solid pink;
   height: 210px;
 }
 
 .home-user {
   grid-area: user;
-  background-color: rgb(255, 0, 13);
+  /* background-color: rgb(255, 0, 13); */
+    border: 1px solid orange;
   height: 550px;
 }
 
