@@ -5,7 +5,7 @@ import { useCarousel } from './hooks/useCarousel'
 import { offersArray } from '@/app/data/homedata'
 import Link from 'next/link'
 import { FiShoppingCart } from 'react-icons/fi'
-import { AiFillStar } from 'react-icons/ai' 
+import Image from 'next/image'
 
 
 interface CarouselProps
@@ -17,7 +17,7 @@ multiItem:boolean
 const Carousel = ({multiItem}:CarouselProps) => {
   const slideRef = useRef(null)
     const totalSlides = 10
-    const itemsPerSlide = 3
+    const itemsPerSlide = 4
      const effectiveItemsPerSlide = Math.min(itemsPerSlide, offersArray.length);
   const [handlePrev, handleNext] = useCarousel({
   index:multiItem?0:1,
@@ -35,7 +35,7 @@ const Carousel = ({multiItem}:CarouselProps) => {
   return (
     <div className="carousel-container relative flex h-full">
       <button
-        className="carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 p-2 text-white bg-gray-500/30 z-10"
+        className="carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 p-2 text-grey-50 bg-white z-10"
         onClick={handlePrev}
       >
         <IoIosArrowBack size={24} />
@@ -56,7 +56,7 @@ const Carousel = ({multiItem}:CarouselProps) => {
                   }}
                 >
                   <div className="relative group h-full">
-                    <div className="relative overflow-hidden rounded-lg h-full">
+                    <div className="relative overflow-hidden  h-full">
                       <img
                         src={slide.image}
                         alt={'Product ' + index}
@@ -88,18 +88,24 @@ const Carousel = ({multiItem}:CarouselProps) => {
                 </div>
               ))
             : slides.map((index) => (
-                <img
-                  className="w-full h-full flex-shrink-0"
-                  key={index}
+              <div key={index} className="relative w-full h-full flex-shrink-0">
+                <Image
                   src={`/images/carousel/${index + 1}.jpg`}
                   alt={`Slide ${index + 1}`}
+                  fill
+                  priority
+                  style={{objectPosition:'-1px -4px'}}
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                  quality={100}
                 />
-              ))}
+              </div>
+            ))}
         </div>
       </div>
 
       <button
-        className="carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white bg-gray-500/30 z-10"
+        className="carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 p-2 text-grey-50 bg-white z-10"
         onClick={handleNext}
       >
         <IoIosArrowForward size={24} />

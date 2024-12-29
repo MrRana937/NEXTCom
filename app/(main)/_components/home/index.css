@@ -7,15 +7,15 @@
 @apply grid gap-3;
 grid-template-columns: 1fr 3fr 1fr;
 grid-template-areas:"header header header"
-"menu swiper user"
-"menu offers user";
+"swiper swiper swiper"
+"offers offers offers";
 }
 
 .home-header {
   grid-area: header;
   /* background-color: aqua; */
-  border: 1px solid black;
-  height: 70px;
+  /* border: 1px solid black; */
+  height: 155px;
   border-radius: 10px;
 }
 
@@ -29,10 +29,10 @@ grid-template-areas:"header header header"
 
 .home-swiper {
   grid-area: swiper;
-  background-color: lightcyan;
-    border: 1px solid black;
+  /* background-color: lightcyan; */
+    /* border: 1px solid black; */
   height: 330px;
-   border-radius: 10px;
+   /* border-radius: 10px; */
    overflow: hidden;
 }
 
@@ -41,9 +41,9 @@ grid-template-areas:"header header header"
   height: 210px;
   background-image: url('/images/flash.webp');
   overflow: hidden;
-  background-position: -275px -135px;
+  background-position: -292px -129px;
   background-size: cover;
-   border-radius: 10px;
+   /* border-radius: 10px; */
 
 }
 

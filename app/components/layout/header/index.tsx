@@ -13,7 +13,7 @@ export default function Header({ country }: HeaderProps) {
   return (
     <header className="header">
       <Ad />
-      <Top country={country} />
+      {/* <Top country={country} /> */}
       <Search />
     </header>
   )

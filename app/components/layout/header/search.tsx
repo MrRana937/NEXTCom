@@ -2,11 +2,12 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { FaOpencart } from 'react-icons/fa'
 import { RiSearch2Line } from 'react-icons/ri'
+import UserMenu from './userMenu'
 
 const Search = () => {
 
   return (
-    <div className="relative h-[70px] shadow-sm bg-white">
+    <div className="relative h-[90px] shadow-sm bg-white">
       <div className="max-w-7xl mx-auto px-4 h-full">
         <div className="flex items-center justify-between h-full gap-8">
           {/* Logo */}
@@ -42,6 +43,9 @@ const Search = () => {
               0
             </span>
           </Link>
+          <div className="user-account">
+            <UserMenu />
+          </div>
         </div>
       </div>
     </div>
